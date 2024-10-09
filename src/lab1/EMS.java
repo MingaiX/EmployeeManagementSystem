@@ -2,28 +2,44 @@ package lab1;
 
 public class EMS {
     public static void main(String[] args) {
-        // 获取单例的 EmployeeManager 实例
+        // Create a FullTimeEmployeeBuilder
+        EmployeeBuilder fullTimeBuilder = new FullTimeEmployeeBuilder();
+        
+        // Use EmployeeDirector to manage the construction process for full time employee
+        EmployeeDirector director = new EmployeeDirector(fullTimeBuilder);
+        
+        // Construct a full time employee with the director
+        Employee fullTimeEmployee = director.constructEmployee(
+            1, "John Doe", "IT", "Software Developer", 40, 100000
+        );
+        
+        // Get the singleton instance of EmployeeManager and add the full time employee
         EmployeeManager manager = EmployeeManager.getInstance();
-        
-        // 创建工厂类实例
-        EmployeeFactory factory = new EmployeeFactory();
-        
-        // 使用工厂模式创建全职和兼职员工
-        Employee fullTimeEmployee = factory.createEmployee("fulltime");
-        Employee partTimeEmployee = factory.createEmployee("parttime");
-        
-        // 将员工添加到 EmployeeManager 中
         manager.addEmployee(fullTimeEmployee);
+        
+        // Print information about the full time employee
+        System.out.println("Full-time employee created: " + fullTimeEmployee.name + ", Department: " + fullTimeEmployee.department);
+
+        // Create a PartTimeEmployeeBuilder
+        EmployeeBuilder partTimeBuilder = new PartTimeEmployeeBuilder();
+        
+        // Use the same EmployeeDirector to construct a part-time employee
+        director = new EmployeeDirector(partTimeBuilder);
+        Employee partTimeEmployee = director.constructEmployee(
+            2, "Jane Smith", "HR", "HR Coordinator", 20, 50000
+        );
+        
+        // Add the part time employee to the manager
         manager.addEmployee(partTimeEmployee);
         
-        // 模拟员工操作
-        fullTimeEmployee.clockIn();
-        partTimeEmployee.clockIn();
-        
-        // 从管理器中检索员工
-        Employee retrievedEmployee = manager.getEmployee(fullTimeEmployee.id);
-        if (retrievedEmployee != null) {
-            System.out.println("Retrieved Employee: " + retrievedEmployee.name);
+        // Print information about the part-time employee
+        System.out.println("Part-time employee created: " + partTimeEmployee.name + ", Department: " + partTimeEmployee.department);
+
+        // List all employees in the system
+        System.out.println("\nAll employees in the system:");
+        for (Employee employee : manager.getAllEmployees()) {
+            System.out.println("Employee: " + employee.name + ", Role: " + employee.role);
         }
     }
 }
+

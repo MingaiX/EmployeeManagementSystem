@@ -1,22 +1,28 @@
 package lab1;
 
 public class FullTimeEmployee extends Employee {
-    public FullTimeEmployee(int id, String name, String department, String role) {
-        super(id, name, department, role);
+    public FullTimeEmployee(int id, String name, String department, String role, int workingHoursPerWeek, double salary) {
+        super(id, name, department, role, workingHoursPerWeek, salary);  // Call the superclass constructor to initialize properties
     }
 
     @Override
     public void clockIn() {
-        System.out.println(name + " clocked in as full-time employee.");
+        System.out.println(name + " clocked in.");  // implement clock-in
     }
 
     @Override
     public void clockOut() {
-        System.out.println(name + " clocked out.");
+        System.out.println(name + " clocked out.");  // implement clock-out
     }
 
     @Override
     public void trackWorkHours() {
-        System.out.println(name + " is tracking work hours.");
+        System.out.println(name + " is working full time.");  // implement work hours tracking for full time employee
     }
 }
+
+
+/*
+继承自Employee类，具体实现了abstract methods
+构造函数通过调用父类的构造函数来初始化所有员工属性
+*/

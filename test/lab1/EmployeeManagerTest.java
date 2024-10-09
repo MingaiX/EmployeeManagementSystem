@@ -1,11 +1,16 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/UnitTests/JUnit4TestClass.java to edit this template
+ */
 package lab1;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+import java.util.List;
+import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import static org.junit.Assert.*;
 
 /**
  *
@@ -16,19 +21,19 @@ public class EmployeeManagerTest {
     public EmployeeManagerTest() {
     }
     
-    @BeforeAll
+    @BeforeClass
     public static void setUpClass() {
     }
     
-    @AfterAll
+    @AfterClass
     public static void tearDownClass() {
     }
     
-    @BeforeEach
+    @Before
     public void setUp() {
     }
     
-    @AfterEach
+    @After
     public void tearDown() {
     }
 
@@ -64,9 +69,9 @@ public class EmployeeManagerTest {
     @Test
     public void testRemoveEmployee() {
         System.out.println("removeEmployee");
-        int id = 0;
+        Employee employee = null;
         EmployeeManager instance = null;
-        instance.removeEmployee(id);
+        instance.removeEmployee(employee);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -81,6 +86,20 @@ public class EmployeeManagerTest {
         EmployeeManager instance = null;
         Employee expResult = null;
         Employee result = instance.getEmployee(id);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getAllEmployees method, of class EmployeeManager.
+     */
+    @Test
+    public void testGetAllEmployees() {
+        System.out.println("getAllEmployees");
+        EmployeeManager instance = null;
+        List<Employee> expResult = null;
+        List<Employee> result = instance.getAllEmployees();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");

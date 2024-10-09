@@ -1,6 +1,6 @@
 package lab1;
 
-public class FullTimeEmployeeBuilder implements EmployeeBuilder {
+public class PartTimeEmployeeBuilder implements EmployeeBuilder {
     private int id;
     private String name;
     private String department;
@@ -46,11 +46,11 @@ public class FullTimeEmployeeBuilder implements EmployeeBuilder {
 
     @Override
     public Employee build() {
-        return new FullTimeEmployee(id, name, department, role, workingHoursPerWeek, salary);  // Build and return the full time employee object
+        return new PartTimeEmployee(id, name, department, role, workingHoursPerWeek, salary);  // Build and return the part time employee object
     }
 }
 
 /*
-FullTimeEmployeeBuilder实现了EmployeeBuilder接口，具体构建一个全职员工对象
-每个set方法设置相应的属性，build()返回并生成一个具体的FullTimeEmployee对象
+PartTimeEmployeeBuilder实现了EmployeeBuilder接口，具体构建一个兼职员工对象
+每个set方法设置相应的属性，build()返回并生成一个具体的PartTimeEmployee对象
 */
