@@ -1,108 +1,73 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/UnitTests/JUnit4TestClass.java to edit this template
- */
 package lab1;
 
-import java.util.List;
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-/**
- *
- * @author minga
- */
 public class EmployeeManagerTest {
-    
-    public EmployeeManagerTest() {
-    }
-    
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
+
+    private EmployeeManager manager;
+
+    // Before each test, reset the EmployeeManager instance
     @Before
-    public void setUp() {
-    }
-    
-    @After
-    public void tearDown() {
+    public void setUp() throws Exception {
+        // Reset the singleton instance to ensure tests are independent
+        resetSingleton();
+        // Get a fresh instance of EmployeeManager for each test
+        manager = EmployeeManager.getInstance();
     }
 
-    /**
-     * Test of getInstance method, of class EmployeeManager.
-     */
+    // Use reflection to reset the singleton for testing purposes
+    private void resetSingleton() throws Exception {
+        java.lang.reflect.Field instance = EmployeeManager.class.getDeclaredField("instance");
+        instance.setAccessible(true);
+        instance.set(null, null);  // Reset the instance to null
+    }
+
+    // Test to verify that EmployeeManager is a singleton
     @Test
     public void testGetInstance() {
-        System.out.println("getInstance");
-        EmployeeManager expResult = null;
-        EmployeeManager result = EmployeeManager.getInstance();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        EmployeeManager manager1 = EmployeeManager.getInstance();
+        EmployeeManager manager2 = EmployeeManager.getInstance();
+        assertSame("EmployeeManager instances should be the same (Singleton)", manager1, manager2);
     }
 
-    /**
-     * Test of addEmployee method, of class EmployeeManager.
-     */
+    // Test adding an employee to EmployeeManager
     @Test
     public void testAddEmployee() {
-        System.out.println("addEmployee");
-        Employee employee = null;
-        EmployeeManager instance = null;
-        instance.addEmployee(employee);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Employee employee = new FullTimeEmployee(1, "John Doe", "IT", "Developer", 40, 100000);
+        manager.addEmployee(employee);
+        assertEquals(1, manager.getAllEmployees().size());
+        assertEquals(employee, manager.getEmployee(1));  // Compare the actual Employee object
     }
 
-    /**
-     * Test of removeEmployee method, of class EmployeeManager.
-     */
+    // Test removing an employee from EmployeeManager
     @Test
     public void testRemoveEmployee() {
-        System.out.println("removeEmployee");
-        Employee employee = null;
-        EmployeeManager instance = null;
-        instance.removeEmployee(employee);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Employee employee = new FullTimeEmployee(1, "John Doe", "IT", "Developer", 40, 100000);
+        manager.addEmployee(employee);
+        assertEquals(1, manager.getAllEmployees().size());
+        manager.removeEmployee(employee);
+        assertEquals(0, manager.getAllEmployees().size());
     }
 
-    /**
-     * Test of getEmployee method, of class EmployeeManager.
-     */
+    // Test retrieving an employee by their ID
     @Test
     public void testGetEmployee() {
-        System.out.println("getEmployee");
-        int id = 0;
-        EmployeeManager instance = null;
-        Employee expResult = null;
-        Employee result = instance.getEmployee(id);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Employee employee = new FullTimeEmployee(1, "John Doe", "IT", "Developer", 40, 100000);
+        manager.addEmployee(employee);
+        Employee foundEmployee = manager.getEmployee(1);
+        assertNotNull(foundEmployee);
+        assertEquals(employee, foundEmployee);  // Compare the entire Employee object
     }
 
-    /**
-     * Test of getAllEmployees method, of class EmployeeManager.
-     */
+    // Test getting all employees in EmployeeManager
     @Test
     public void testGetAllEmployees() {
-        System.out.println("getAllEmployees");
-        EmployeeManager instance = null;
-        List<Employee> expResult = null;
-        List<Employee> result = instance.getAllEmployees();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Employee employee1 = new FullTimeEmployee(1, "John Doe", "IT", "Developer", 40, 100000);
+        Employee employee2 = new FullTimeEmployee(2, "Jane Smith", "HR", "Coordinator", 20, 50000);
+        manager.addEmployee(employee1);
+        manager.addEmployee(employee2);
+        assertEquals(2, manager.getAllEmployees().size());
     }
-    
 }

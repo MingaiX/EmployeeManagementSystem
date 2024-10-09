@@ -14,4 +14,5 @@ public class EmployeeFactory {
 /*
 工厂模式通过EmployeeFactory提供了根据类型动态创建不同员工对象的能力
 createEmployee()方法根据传入的类型参数创建并返回相应的员工
+根据输入的类型简单的创建员工
 */
